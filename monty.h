@@ -1,13 +1,12 @@
-#ifndef MONTY_H
-#define MONTY_
+#ifndef HEADER
+#define HEADER
 
-#define _GNU_SOURCE
 #include <stdio.h>
-#include <unistd.h>
-#include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 #include <stdarg.h>
+
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -20,11 +19,12 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
+extern stack_t *head;
 
 /**
  * struct instruction_s - opcode and its function
@@ -36,51 +36,38 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern stack_t *head;
-typedef void (*oper_func)(stack_t **, unsigned int);
-
-/* file operations */
-void open_fl(char *file_name);
-int pars_line(char *buffer, int line_num, int format);
-void read_file(FILE *);
-int len_chars(FILE *);
-void find_func(char *, char *, int, int);
-
-/* stack operations*/
-stack_t *creat_node(int n);
-void free_nodes(void);
-void print_stack(stack_t **, unsigned int);
-void add_to_stack(stack_t **, unsigned int);
-void add_to_queue(stack_t **, unsigned int);
-
-void call_fun(op_func, char *, char *, int, int);
-
-void print_top(stack_t **, unsigned int);
-void pop_top(stack_t **, unsigned int);
-void nop(stack_t **, unsigned int);
-void swap_nodes(stack_t **, unsigned int);
-
-/*Math operations with nodes*/
-void add_nodes(stack_t **, unsigned int);
-void sub_nodes(stack_t **, unsigned int);
-void div_nodes(stack_t **, unsigned int);
-void mul_nodes(stack_t **, unsigned int);
-void mod_nodes(stack_t **, unsigned int);
-
-/*String operations*/
-void print_char(stack_t **, unsigned int);
-void print_string(stack_t **, unsigned int);
-void rotl(stack_t **, unsigned int);
-
-/*Error hanlding*/
-void error(int err_code, ...);
-void more_error(int err_code, ...);
-void string_error(int err_code, ...);
-void rotr(stack_t **, unsigned int);
-
+void principal(FILE *);
+int exec(char **, unsigned int, char *);
+int exec_stack(char **, unsigned int);
+int exec_queue(char **, unsigned int);
+char **split(char *txt, char *sep);
+void _push(stack_t **, unsigned int);
+void _push_queue(stack_t **, unsigned int);
+void _pall(stack_t **, unsigned int);
+void _Qpall(stack_t **, unsigned int);
+void _pint(stack_t **, unsigned int);
+void _pop(stack_t **, unsigned int);
+void _nop(stack_t **, unsigned int);
+void _swap(stack_t **, unsigned int);
+void _add(stack_t **, unsigned int);
+void _sub(stack_t **, unsigned int);
+void _div(stack_t **, unsigned int);
+void _mul(stack_t **, unsigned int);
+void _mod(stack_t **, unsigned int);
+void _pchar(stack_t **, unsigned int);
+void _pstr(stack_t **, unsigned int);
+void _rotl(stack_t **, unsigned int);
+void _rotr(stack_t **, unsigned int);
+/*void _pop(stack_t **, unsigned int);*/
+/*void _swap(stack_t **, unsigned int);*/
+/*void _add(stack_t **, unsigned int);*/
+char **_strtok(char *argv, char **table);
+char *_strdup(char *);
+stack_t *add_dnodeint(stack_t **head, const int n);
+void free_dlistint(stack_t *head);
 
 #endif
